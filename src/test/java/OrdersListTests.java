@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class OrdersListTests {
     @Before
@@ -16,6 +17,6 @@ public class OrdersListTests {
     @DisplayName("Список заказов")
     @Description("Проверка получения списка заказов для /api/v1/orders")
     public void getListOrdersTest() {
-        given().header("Content-type", "application/json").log().all().get("/api/v1/orders").then().assertThat().statusCode(200);
+        given().header("Content-type", "application/json").log().all().get("/api/v1/orders").then().assertThat().body("orders", notNullValue()).and().statusCode(200);
     }
 }

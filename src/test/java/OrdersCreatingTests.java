@@ -9,6 +9,7 @@ import org.junit.runners.Parameterized;
 import ru.services.praktikum.scooter.qa.Orders;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.isA;
 
 import io.restassured.response.Response;
 
@@ -38,6 +39,6 @@ public class OrdersCreatingTests {
     @Description("Проверка создания заказа с различными данными")
     public void checkCreateOrder() {
         Response response = given().log().all().header("Content-type", "application/json").body(orders).when().post("/api/v1/orders");
-        response.then().log().all().assertThat().and().statusCode(201).body("track", Matchers.notNullValue());
+        response.then().log().all().assertThat().and().statusCode(201).body("track", isA(Number.class));
     }
 }
